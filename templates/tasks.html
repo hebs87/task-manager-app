@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <!--1. Use templating language to loop through the tasks in our collection-->
+    {% for task in tasks %}
+        <!--Display the contents of each field name that's in our database-->
+        {{task.task_name}}
+        {{task.category_name}}
+        {{task.task_description}}
+        {{task.is_urgent}}
+        {{task.due_date}}
+    
+    {% endfor %}
+    
+{% endblock %}
