@@ -9,6 +9,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Link to Materialize-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <!--Link to custom CSS file-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css" />
 </head>
 <body>
     
@@ -20,28 +22,7 @@
     <!--Script for Materialize jQuery-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     <!--Script for custom JS file-->
-    <script>
-        $(document).ready(function() {
-
-            //Collapsible command for the accordion from Materialize
-            $('.collapsible').collapsible();
-
-            //Category select form initialization command
-            $('select').material_select();
-    
-            //Date picker commands from Materialize
-            $('.datepicker').pickadate({
-                selectMonths: true, // Creates a dropdown to control month
-                selectYears: 15, // Creates a dropdown of 15 years to control year,
-                today: 'Today',
-                clear: 'Clear',
-                close: 'Ok',
-                closeOnSelect: false, // Close upon selecting a date,
-                container: undefined // ex. 'body' will append picker to body
-            });
-            
-        });
-    </script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     
 </body>
 </html>
