@@ -24,7 +24,11 @@ mongo = PyMongo(app)
 def get_tasks():
     # Redirect to existing tasks.html template and will return everything in our tasks collection
     return render_template("tasks.html", tasks=mongo.db.tasks.find())
-    
+# 11. Create new route decorator and add_task function
+# Allows user to add a single task
+@app.route('/add_task')
+def add_task():
+    return render_template("addtask.html")
 
 ''' 3. Create test function with the default route which will display some text as a proof of concept
 DELETE THIS WHEN COMPLETING STEP 8
