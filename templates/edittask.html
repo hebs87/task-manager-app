@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Edit Task</h2>
+
+<!--Form template from Materialize, amended to requirements-->
+<div class="row">
+    <!--Add form method of POST-->
+    <!--Add action of the function we created in the .py file at step 14-->
+    <form action="{{ url_for('insert_task') }}" method="POST" class="col s12">
+        <!--Task category select menu-->
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">poll</i>
+                <select id="category" name="category_name">
+                    <option value="" disabled selected>Choose Category</option>
+                    <!--After step 12 in app.py - For loop to iterate through categories-->
+                    {% for cat in categories %}
+                    <!--Conditional formatting to input the category_name in both value and text
+                    Value is what is submitted behind the scenes to the form; text is what user sees-->
+                    <option value="{{ cat.category_name }}">{{ cat.category_name }}</option>
+                    {% endfor %}
+                </select>
+                <label>Task Category</label>
+            </div>
+        </div>
+        <!--Task Name field-->
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">assignment</i>
+                <!--Match the names of the input fields to the names of the MongoDB fields-->
+                <input id="task_name" name="task_name" type="text" class="validate">
+                <label for="task_name">Task Name</label>
+            </div>
+        </div>
+        <!--Task Description field-->
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">subject</i>
+                <textarea id="task_description" name="task_description" class="materialize-textarea"></textarea>
+                <label for="task_description">Task Description</label>
+            </div>
+        </div>
+        <!--Due Date date picker-->
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">today</i>
+                <input id="due_date" name="due_date" type="text" class="datepicker">
+                <label for="due_date">Due Date</label>
+            </div>
+        </div>
+        <!--Is Urgent check switch-->
+        <div class="row">
+            <div class="switch">
+                <label>
+                    <input id="is_urgent" name="is_urgent" type="checkbox">
+                    <span class="lever"></span>
+                    Is Urgent
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <button class="btn waves-effect waves-light" type="submit">Add Task
+                <i class="material-icons right">playlist_add</i>
+            </button>
+        </div>
+    </form>
+  </div>
+  
+{% endblock %}

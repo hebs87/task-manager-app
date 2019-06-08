@@ -1,22 +1,32 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<ul class="collapsible popout" data-collapsible="accordion">
-    <!--1. Use templating language to loop through the tasks in our collection-->
-    {% for task in tasks %}
-    <li>
-        <div class="collapsible-header"><i class="material-icons">expand_more</i>
-            <!--Display the task name and due date in the accordion header-->
-            <strong>{{task.task_name}}</strong> - {{task.due_date}}
-        </div>
-        <div class="collapsible-body">
-            <span>
-                <!--Display the task description in the accordion body-->
-                {{task.task_description}}
-            </span>
-        </div>
-    </li>
-    {% endfor %}
-</ul>
+<div class="row">
+    <ul class="collapsible popout" data-collapsible="accordion">
+        <!--1. Use templating language to loop through the tasks in our collection-->
+        {% for task in tasks %}
+        <li>
+            <div class="collapsible-header">
+                <div class="col s3">
+                    <i class="material-icons">expand_more</i>
+                    <!--Add 'Done' and 'Edit' buttons-->
+                    <a class="waves-effect waves-light btn btn-small">Done</a>
+                    <a href="{{ url_for('edit_task', task_id=task._id) }}" class="waves-effect waves-light btn btn-small blue">Edit</a>
+                </div>
+                <div class="task-header col s9">
+                    <!--Display the task name and due date in the accordion header-->
+                    <strong>{{task.task_name}}</strong> - {{task.due_date}}
+                </div>
+            </div>
+            <div class="collapsible-body">
+                <span>
+                    <!--Display the task description in the accordion body-->
+                    {{task.task_description}}
+                </span>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
     
 {% endblock %}
