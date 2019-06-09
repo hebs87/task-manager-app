@@ -122,6 +122,24 @@ def delete_category(category_id):
     mongo.db.categories.remove({'_id': ObjectId(category_id)})
     return redirect(url_for('get_categories'))
 
+# 23. After creating addcategory.html file and linking the form action to the function
+# Route decorator for the add_category function, which renders the addcategory.html template
+@app.route('/add_category')
+def add_category():
+    return render_template("addcategory.html")
+
+# 24. Create route decorator for insert_category function
+@app.route('/insert_category', methods=["POST"])
+def insert_category():
+    # Call our categories database
+    categories = mongo.db.categories
+    # Store the form result in a variable and assign it to a category_name field
+    category_doc = {'category_name': request.form.get('category_name')}
+    categories.insert_one(category_doc)
+    return redirect(url_for('get_categories'))
+
+
+
 ''' 3. Create test function with the default route which will display some text as a proof of concept
 DELETE THIS WHEN COMPLETING STEP 8
 @app.route('/')
