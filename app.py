@@ -59,6 +59,22 @@ def edit_task(task_id):
     category_list = [category for category in _categories]
     # All the data will be prepopulated rather that blank fields in our edit template
     return render_template("edittask.html", task=_task, categories=category_list)
+# 17. After we've displayed the data in the edittask.html, we want to update the taks when 'EDIT TASK' btn clicked
+# Create app.route to update_task() function, and we want to update our taks_id
+@app.route('/update_task/<task_id>', methods=["POST"])
+def update_task(task_id):
+    # We call the tasks DB and store it in variable
+    tasks = mongo.db.tasks
+    # Then we call the update method
+    tasks.update( {'_id': ObjectId(task_id)},
+    {
+        'task_name': request.form.get('task_name'),
+        'category_name': request.form.get('category_name'),
+        'task_description': request.form.get('task_description'),
+        'due_date': request.form.get('due_date'),
+        'is_urgent': request.form.get('is_urgent')
+    })
+    return redirect(url_for('get_tasks'))
 
 ''' 3. Create test function with the default route which will display some text as a proof of concept
 DELETE THIS WHEN COMPLETING STEP 8

@@ -7,7 +7,7 @@
 <div class="row">
     <!--Add form method of POST-->
     <!--Add action of the function we created in the .py file at step 14-->
-    <form action="{{ url_for('insert_task') }}" method="POST" class="col s12">
+    <form action="{{ url_for('update_task', task_id=task._id) }}" method="POST" class="col s12">
         <!--Task category select menu-->
         <div class="row">
             <div class="input-field col s12">
