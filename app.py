@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 #6. Add configuration to Flask app - add the MongoBD name and URL linking to database
 app.config["MONGO_DBNAME"] = 'task_manager'
-app.config["MONGO_URI"] = os.getenv("MONGO_URI")
+app.config["MONGO_URI"] = os.getenv("MONGO_URI", 'mongodb://localhost')
 
 # 7. Create instance of PyMongo and add app into it using constructor function
 mongo = PyMongo(app)
@@ -53,11 +53,12 @@ def insert_task():
 def edit_task(task_id):
     # We want to find a particular task by its _id and redirect the user to the edittask.html template
     # _id is the key in the DB, and the ObjectId is the task_id that's passed into the function
-    the_task = mongo.db.tasks.find({"_id": ObjectId(task_id)})
+    _task = mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
     # We need a list of the collections, as we want to present the categories on the edit form
-    all_categories = mongo.db.categories.find()
+    _categories = mongo.db.categories.find()
+    category_list = [category for category in _categories]
     # All the data will be prepopulated rather that blank fields in our edit template
-    return render_template("edittask.html", task=the_task, categories=all_categories)
+    return render_template("edittask.html", task=_task, categories=category_list)
 
 ''' 3. Create test function with the default route which will display some text as a proof of concept
 DELETE THIS WHEN COMPLETING STEP 8
