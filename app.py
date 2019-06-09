@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 #6. Add configuration to Flask app - add the MongoBD name and URL linking to database
 app.config["MONGO_DBNAME"] = 'task_manager'
-app.config["MONGO_URI"] = os.getenv("MONGO_URI", 'mongodb://localhost')
+app.config["MONGO_URI"] = os.getenv("MONGO_URI")
 
 # 7. Create instance of PyMongo and add app into it using constructor function
 mongo = PyMongo(app)
