@@ -24,20 +24,14 @@ mongo = PyMongo(app)
 @app.route('/get_tasks')
 def get_tasks():
     # Redirect to existing tasks.html template and will return everything in our tasks collection
-    # Create variables and pass that in to the render_template() method
-    _tasks = mongo.db.tasks.find()
-    task_list = [task for task in _tasks]
-    return render_template("tasks.html", tasks=task_list)
+    return render_template("tasks.html", tasks=mongo.db.tasks.find())
 
 # 11. Create new route decorator and add_task function
 # Allows user to add a single task
 @app.route('/add_task')
 def add_task():
     # 12. Add categories from the database to the render_template() method
-    # Create variables and pass that in to the method
-    _categories = mongo.db.categories.find()
-    category_list = [category for category in _categories]
-    return render_template("addtask.html", categories=category_list)
+    return render_template("addtask.html", categories=mongo.db.categories.find())
 
 # 13. Create new route decorator to insert task when form is submitted
 @app.route('/insert_task', methods=["POST"])
