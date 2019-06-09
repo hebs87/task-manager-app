@@ -147,6 +147,10 @@ def hello():
 
 # 4. Set up our IP address and port number so Cloud9 knows how and where to run app
 if __name__ == '__main__':
+    '''
+    DURING TESTING PHASE
     app.run(host=os.getenv('IP'),
             port=int(os.getenv('PORT')),
             debug=True)
+    '''
+    app.run(host=os.getenv("IP", "0.0.0.0"), port=int(os.getenv("PORT", "5000")), debug=False)
