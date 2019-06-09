@@ -16,5 +16,8 @@ $(document).ready(function() {
         closeOnSelect: false, // Close upon selecting a date,
         container: undefined // ex. 'body' will append picker to body
     });
+    
+    // Event handler for nav menu burger icon
+    $(".button-collapse").sideNav();
 
 });

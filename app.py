@@ -138,8 +138,6 @@ def insert_category():
     categories.insert_one(category_doc)
     return redirect(url_for('get_categories'))
 
-
-
 ''' 3. Create test function with the default route which will display some text as a proof of concept
 DELETE THIS WHEN COMPLETING STEP 8
 @app.route('/')
