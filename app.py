@@ -75,6 +75,12 @@ def update_task(task_id):
         'is_urgent': request.form.get('is_urgent')
     })
     return redirect(url_for('get_tasks'))
+# 18. We want to delete a task when the user clicks the 'DONE' button
+@app.route('/delete_task/<task_id>')
+def delete_task(task_id):
+    tasks = mongo.db.tasks
+    tasks.remove({'_id': ObjectId(task_id)})
+    return redirect(url_for('get_tasks'))
 
 ''' 3. Create test function with the default route which will display some text as a proof of concept
 DELETE THIS WHEN COMPLETING STEP 8
