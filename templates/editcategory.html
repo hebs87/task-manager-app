@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Edit Category</h2>
+
+<!--Form template from Materialize, amended to requirements-->
+<div class="row">
+    <!--Add form method of POST-->
+    <!--Add action of the function we created in the .py file at step 14-->
+    <form action="{{ url_for('update_category', category_id=category._id) }}" method="POST" class="col s12">
+        <!--Category Name field-->
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">poll</i>
+                <!--Match the names of the input fields to the names of the MongoDB fields-->
+                <input id="category_name" name="category_name" type="text" class="validate" value="{{ category.category_name }}">
+                <label for="category_name">Category Name</label>
+            </div>
+        </div>
+        <div class="row">
+            <button class="btn waves-effect waves-light" type="submit">Edit Category
+                <i class="material-icons right">playlist_add</i>
+            </button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

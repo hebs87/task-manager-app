@@ -6,15 +6,15 @@
     <h2>Categories</h2>
     <ul class="collapsible popout" data-collapsible="accordion">
         <!--1. Use templating language to loop through the categories in our collection-->
-        {% for cat in categories %}
+        {% for category in categories %}
         <li>
             <div class="collapsible-header">
-                <!--Add 'Del' and 'Edit' buttons-->
-                <a href="" class="waves-effect waves-light btn btn-small">Del</a>
-                <a href="" class="waves-effect waves-light btn btn-small blue">Edit</a>
+                <!--Add 'Del' and 'Edit' buttons - hrefs similar to the tasks.html btns-->
+                <a href="{{ url_for('delete_category', category_id=category._id) }}" class="waves-effect waves-light btn btn-small">Del</a>
+                <a href="{{ url_for('edit_category', category_id=category._id) }}" class="waves-effect waves-light btn btn-small blue">Edit</a>
                 <div class="task-header col s9">
                     <!--Display the category name in the accordion header-->
-                    <strong>{{cat.category_name}}</strong>
+                    <strong>{{category.category_name}}</strong>
                 </div>
             </div>
         </li>

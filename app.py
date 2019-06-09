@@ -18,6 +18,7 @@ mongo = PyMongo(app)
 
 # 8. Create function with decorator that includes a route to that function
 @app.route('/')
+
 # 10. We will use a string called get_tasks and assign the route to the function
 # This is the default function that will be run when the app is run
 @app.route('/get_tasks')
@@ -27,6 +28,7 @@ def get_tasks():
     _tasks = mongo.db.tasks.find()
     task_list = [task for task in _tasks]
     return render_template("tasks.html", tasks=task_list)
+
 # 11. Create new route decorator and add_task function
 # Allows user to add a single task
 @app.route('/add_task')
@@ -36,6 +38,7 @@ def add_task():
     _categories = mongo.db.categories.find()
     category_list = [category for category in _categories]
     return render_template("addtask.html", categories=category_list)
+
 # 13. Create new route decorator to insert task when form is submitted
 @app.route('/insert_task', methods=["POST"])
 def insert_task():
@@ -46,6 +49,7 @@ def insert_task():
     tasks.insert_one(request.form.to_dict())
     # Once submitted, redirect the user to the tasks.html file
     return redirect(url_for('get_tasks'))
+
 # 15. Once we've created DONE and EDIT buttons, we wire them up, starting with EDIT button
 # Create app.route to edit_task() function, and we want to edit our taks_id
 @app.route('/edit_task/<task_id>')
@@ -59,6 +63,7 @@ def edit_task(task_id):
     category_list = [category for category in _categories]
     # All the data will be prepopulated rather that blank fields in our edit template
     return render_template("edittask.html", task=_task, categories=category_list)
+
 # 17. After we've displayed the data in the edittask.html, we want to update the taks when 'EDIT TASK' btn clicked
 # Create app.route to update_task() function, and we want to update our taks_id
 @app.route('/update_task/<task_id>', methods=["POST"])
@@ -75,12 +80,14 @@ def update_task(task_id):
         'is_urgent': request.form.get('is_urgent')
     })
     return redirect(url_for('get_tasks'))
+
 # 18. We want to delete a task when the user clicks the 'DONE' button
 @app.route('/delete_task/<task_id>')
 def delete_task(task_id):
     tasks = mongo.db.tasks
     tasks.remove({'_id': ObjectId(task_id)})
     return redirect(url_for('get_tasks'))
+
 # 19. After creating categories.html, we create a get_categories route decorator
 @app.route('/get_categories')
 def get_categories():
@@ -89,6 +96,31 @@ def get_categories():
     return render_template("categories.html",
     categories=mongo.db.categories.find())
 
+# 20. After adding url_for to the edit button in categories.html
+# Create route to edit_category function, which will render the editcategory.html
+# This will display the current category and allow the user to change it
+@app.route('/edit_category/<category_id>')
+def edit_category(category_id):
+    return render_template("editcategory.html",
+    category=mongo.db.categories.find_one({'_id': ObjectId(category_id)}))
+
+# 21. After creating and amending the editcategory.html file
+# Create route decorator for edit_category function (similar to edit_task function)
+@app.route('/update_category/<category_id>', methods=["POST"])
+def update_category(category_id):
+    categories = mongo.db.categories
+    categories.update({'_id': ObjectId(category_id)},
+    {
+        'category_name': request.form.get('category_name')
+    })
+    return redirect(url_for('get_categories'))
+
+# 22. After updating Delete btn href in categories.html
+# Create route decorator for delete_category function (similar to delete_task function)
+@app.route('/delete_category/<category_id>')
+def delete_category(category_id):
+    mongo.db.categories.remove({'_id': ObjectId(category_id)})
+    return redirect(url_for('get_categories'))
 
 ''' 3. Create test function with the default route which will display some text as a proof of concept
 DELETE THIS WHEN COMPLETING STEP 8
