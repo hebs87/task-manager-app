@@ -81,6 +81,14 @@ def delete_task(task_id):
     tasks = mongo.db.tasks
     tasks.remove({'_id': ObjectId(task_id)})
     return redirect(url_for('get_tasks'))
+# 19. After creating categories.html, we create a get_categories route decorator
+@app.route('/get_categories')
+def get_categories():
+    # Will return everything in our categories collection
+    # we can return results directly in our return call rather than storing in variables
+    return render_template("categories.html",
+    categories=mongo.db.categories.find())
+
 
 ''' 3. Create test function with the default route which will display some text as a proof of concept
 DELETE THIS WHEN COMPLETING STEP 8

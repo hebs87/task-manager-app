@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h2>Add Task</h2>
-
 <!--Form template from Materialize, amended to requirements-->
 <div class="row">
+    <h2>Add Task</h2>
     <!--Add form method of POST-->
     <!--Add action of the function we created in the .py file at step 14-->
     <form action="{{ url_for('insert_task') }}" method="POST" class="col s12">
